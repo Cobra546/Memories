@@ -6,21 +6,18 @@
 <title>Memories Book</title>
 <style>
 body, html {
-  margin: 0; padding: 0; overflow-x: hidden; background: #f0f0f0; font-family: 'Poppins', sans-serif;
+  margin: 0; padding: 0; overflow-x: hidden; font-family: 'Poppins', sans-serif; background: #4b0082; /* dark purple */
 }
 
-#preBookAudio, #openBookAudio, #closeBookAudio {
-  display: none;
-}
+/* AUDIOS */
+audio { display:none; }
 
 /* BOOK CONTAINER */
 .bookContainer {
   position: relative;
   width: 100vw;
   height: 100vh;
-  display: flex;
-  justify-content: center;
-  align-items: center;
+  display: flex; justify-content: center; align-items: center;
   perspective: 2000px;
 }
 
@@ -28,82 +25,145 @@ body, html {
 .cover {
   width: 80vw;
   height: 70vh;
-  background: url('cover.jpg') center/cover no-repeat;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  color: white;
+  background: linear-gradient(135deg, #6a0dad, #9b30ff);
+  display: flex; justify-content: center; align-items: center;
+  color: #fff;
   font-size: 64px;
   font-weight: bold;
   cursor: pointer;
   border-radius: 15px;
-  box-shadow: 0 10px 25px rgba(0,0,0,0.3);
+  box-shadow: 0 10px 25px rgba(0,0,0,0.5);
   transition: transform 1s ease;
 }
-
-.cover.opened {
-  transform: rotateY(-180deg);
-}
+.cover.opened { transform: rotateY(-180deg); }
 
 /* BOOK SPREADS */
 .bookSpread {
-  display: flex;
-  width: 90vw;
-  height: 75vh;
-  background: white;
-  border-radius: 15px;
-  box-shadow: 0 10px 25px rgba(0,0,0,0.3);
-  overflow: hidden;
-  position: absolute;
-  top: 50%; left: 50%;
-  transform: translate(-50%, -50%) scale(0);
-  transition: transform 1s ease, opacity 1s ease;
+  display: flex; width: 90vw; height: 75vh;
+  background: #f5f0ff; border-radius: 15px; box-shadow: 0 10px 25px rgba(0,0,0,0.3);
+  overflow: hidden; position: absolute; top:50%; left:50%;
+  transform: translate(-50%,-50%) scale(0); transition: transform 1s ease, opacity 1s ease;
 }
+.bookSpread.active { transform: translate(-50%,-50%) scale(1); }
 
-.bookSpread.active {
-  transform: translate(-50%, -50%) scale(1);
-}
+.page { flex:1; position: relative; padding:30px; box-sizing:border-box; color:#2e0055; }
+.page h2, .page p { font-size:22px; line-height:1.6; margin-bottom:15px; }
 
-.page {
-  flex: 1;
-  position: relative;
-  padding: 30px;
-  box-sizing: border-box;
-}
-
-.page h2, .page p {
-  font-size: 22px;
-  line-height: 1.6;
-  margin: 0 0 15px 0;
-}
-
-.cornerMedia {
-  position: absolute;
-  bottom: 15px;
-  right: 15px;
-  width: 150px;
-  height: 100px;
-  object-fit: cover;
-  border-radius: 10px;
-  box-shadow: 0 4px 10px rgba(0,0,0,0.3);
-}
-
-.lastPageVideo {
-  width: 400px;
-  height: 250px;
-  bottom: 20px;
-  right: 20px;
-}
+/* CORNER MEDIA */
+.cornerMedia { position:absolute; bottom:15px; right:15px; width:150px; height:100px; object-fit:cover; border-radius:10px; box-shadow:0 4px 10px rgba(0,0,0,0.3); }
 
 /* LAST PAGE */
 .lastPage {
-  width: 90vw;
-  height: 75vh;
-  background: linear-gradient(135deg,#ff9a9e,#fad0c4);
-  border-radius: 15px;
-  box-shadow: 0 10px 25px rgba(0,0,0,0.3);
-  position: absolute;
-  top: 50%; left: 50%;
+  width:90vw; height:75vh;
+  background: linear-gradient(135deg,#6a0dad,#9b30ff);
+  border-radius:15px; box-shadow:0 10px 25px rgba(0,0,0,0.3);
+  position:absolute; top:50%; left:50%;
+  transform: translate(-50%,-50%) scale(0);
+  transition: transform 1s ease, opacity 1s ease;
+  display:flex; flex-direction:column; justify-content:center; align-items:center; color:#fff;
+}
+.lastPage.active { transform: translate(-50%,-50%) scale(1); }
+
+.loveTitle { font-size:40px; margin-bottom:20px; text-align:center; }
+.loveText { font-size:22px; text-align:center; line-height:1.8; color:#fff; }
+</style>
+</head>
+<body>
+
+<!-- AUDIOS -->
+<audio id="preBookAudio" src="Urdu.mp3" autoplay loop></audio>
+<audio id="openBookAudio" src="English.mp3"></audio>
+<audio id="closeBookAudio" src="Punjabi.mp3"></audio>
+
+<div class="bookContainer">
+
+  <!-- COVER -->
+  <div class="cover" id="cover">Memories</div>
+
+  <!-- SPREAD 1 (Pages 2 & 3) -->
+  <div class="bookSpread" id="spread1">
+    <div class="page">
+      <p>Page 2 Text: Aao shoro karen apny pyaar ki dastan...</p>
+    </div>
+    <div class="page">
+      <p>Page 3 Text: Phir kaisy hum roz baten karty larty jagarty...</p>
+      <img src="InShot_20260310_204949778.png" class="cornerMedia">
+    </div>
+  </div>
+
+  <!-- SPREAD 2 (Pages 4 & 5) -->
+  <div class="bookSpread" id="spread2">
+    <div class="page">
+      <p>Page 4 Text: Aur phir wo din aaya jab humari mohabbat aur bhi gehri ho gayi...</p>
+      <video class="cornerMedia" autoplay muted loop>
+        <source src="lv_7397967193448795412_20260310205455.mp4" type="video/mp4">
+      </video>
+    </div>
+    <div class="page">
+      <p>Page 5 Text: Bht up side down aye hain humary relationship main...</p>
+    </div>
+  </div>
+
+  <!-- LAST PAGE -->
+  <div class="lastPage" id="lastPage">
+    <h1 class="loveTitle">Forever Us ❤️</h1>
+    <p class="loveText">Aur hum inshallah nikkah bhi karengy aur kabhi nahi chorengy.</p>
+    <video class="cornerMedia" autoplay muted loop>
+      <source src="VID_20260310_090505_248.mp4" type="video/mp4">
+    </video>
+  </div>
+
+</div>
+
+<script>
+// BOOK LOGIC
+let currentStage = 0;
+const cover = document.getElementById('cover');
+const spread1 = document.getElementById('spread1');
+const spread2 = document.getElementById('spread2');
+const lastPage = document.getElementById('lastPage');
+
+const preAudio = document.getElementById('preBookAudio');
+const openAudio = document.getElementById('openBookAudio');
+const closeAudio = document.getElementById('closeBookAudio');
+
+cover.addEventListener('click', () => {
+  cover.classList.add('opened');
+  openAudio.play();
+  preAudio.pause();
+  currentStage = 1;
+  showStage(currentStage);
+});
+
+// Swipe Detection
+let startX = 0, endX = 0;
+document.addEventListener('touchstart', e => startX = e.touches[0].clientX );
+document.addEventListener('touchend', e => { 
+  endX = e.changedTouches[0].clientX;
+  handleSwipe();
+});
+
+function handleSwipe(){
+  if(currentStage === 0) return;
+  if(endX < startX - 50){ currentStage++; showStage(currentStage); } // swipe left
+  else if(endX > startX + 50){ currentStage--; showStage(currentStage); } // swipe right
+}
+
+function showStage(stage){
+  spread1.classList.remove('active');
+  spread2.classList.remove('active');
+  lastPage.classList.remove('active');
+
+  if(stage===1) spread1.classList.add('active');
+  else if(stage===2) spread2.classList.add('active');
+  else if(stage===3) lastPage.classList.add('active');
+  else if(stage<1){ cover.classList.remove('opened'); preAudio.play(); closeAudio.play(); }
+  else if(stage>3){ cover.classList.remove('opened'); preAudio.play(); closeAudio.play(); }
+}
+</script>
+
+</body>
+</html>  top: 50%; left: 50%;
   transform: translate(-50%, -50%) scale(0);
   transition: transform 1s ease, opacity 1s ease;
   display: flex;
