@@ -1,0 +1,240 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Memories Book</title>
+<style>
+body, html {
+  margin: 0; padding: 0; overflow-x: hidden; background: #f0f0f0; font-family: 'Poppins', sans-serif;
+}
+
+#preBookAudio, #openBookAudio, #closeBookAudio {
+  display: none;
+}
+
+/* BOOK CONTAINER */
+.bookContainer {
+  position: relative;
+  width: 100vw;
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  perspective: 2000px;
+}
+
+/* COVER PAGE */
+.cover {
+  width: 80vw;
+  height: 70vh;
+  background: url('cover.jpg') center/cover no-repeat;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: white;
+  font-size: 64px;
+  font-weight: bold;
+  cursor: pointer;
+  border-radius: 15px;
+  box-shadow: 0 10px 25px rgba(0,0,0,0.3);
+  transition: transform 1s ease;
+}
+
+.cover.opened {
+  transform: rotateY(-180deg);
+}
+
+/* BOOK SPREADS */
+.bookSpread {
+  display: flex;
+  width: 90vw;
+  height: 75vh;
+  background: white;
+  border-radius: 15px;
+  box-shadow: 0 10px 25px rgba(0,0,0,0.3);
+  overflow: hidden;
+  position: absolute;
+  top: 50%; left: 50%;
+  transform: translate(-50%, -50%) scale(0);
+  transition: transform 1s ease, opacity 1s ease;
+}
+
+.bookSpread.active {
+  transform: translate(-50%, -50%) scale(1);
+}
+
+.page {
+  flex: 1;
+  position: relative;
+  padding: 30px;
+  box-sizing: border-box;
+}
+
+.page h2, .page p {
+  font-size: 22px;
+  line-height: 1.6;
+  margin: 0 0 15px 0;
+}
+
+.cornerMedia {
+  position: absolute;
+  bottom: 15px;
+  right: 15px;
+  width: 150px;
+  height: 100px;
+  object-fit: cover;
+  border-radius: 10px;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.3);
+}
+
+.lastPageVideo {
+  width: 400px;
+  height: 250px;
+  bottom: 20px;
+  right: 20px;
+}
+
+/* LAST PAGE */
+.lastPage {
+  width: 90vw;
+  height: 75vh;
+  background: linear-gradient(135deg,#ff9a9e,#fad0c4);
+  border-radius: 15px;
+  box-shadow: 0 10px 25px rgba(0,0,0,0.3);
+  position: absolute;
+  top: 50%; left: 50%;
+  transform: translate(-50%, -50%) scale(0);
+  transition: transform 1s ease, opacity 1s ease;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.lastPage.active {
+  transform: translate(-50%, -50%) scale(1);
+}
+
+.loveTitle {
+  font-size: 40px;
+  margin-bottom: 20px;
+  text-align: center;
+}
+
+.loveText {
+  font-size: 22px;
+  text-align: center;
+  line-height: 1.8;
+}
+</style>
+</head>
+<body>
+
+<!-- AUDIOS -->
+<audio id="preBookAudio" src="song_before.mp3" autoplay loop></audio>
+<audio id="openBookAudio" src="song_open.mp3"></audio>
+<audio id="closeBookAudio" src="song_close.mp3"></audio>
+
+<div class="bookContainer">
+
+  <!-- COVER PAGE -->
+  <div class="cover" id="cover">Memories</div>
+
+  <!-- BOOK SPREADS -->
+  <div class="bookSpread" id="spread1">
+    <div class="page">
+      <p>Page 2 Text...</p>
+    </div>
+    <div class="page">
+      <p>Page 3 Text...</p>
+      <img src="page3image.jpg" class="cornerMedia">
+    </div>
+  </div>
+
+  <div class="bookSpread" id="spread2">
+    <div class="page">
+      <p>Page 4 Text...</p>
+      <video class="cornerMedia" autoplay muted loop>
+        <source src="page4video.mp4" type="video/mp4">
+      </video>
+    </div>
+    <div class="page">
+      <p>Page 5 Text...</p>
+    </div>
+  </div>
+
+  <!-- LAST PAGE -->
+  <div class="lastPage" id="lastPage">
+    <h1 class="loveTitle">Forever Us ❤️</h1>
+    <p class="loveText">Ending text here...</p>
+    <video class="lastPageVideo" autoplay muted loop>
+      <source src="endingVideo.mp4" type="video/mp4">
+    </video>
+  </div>
+
+</div>
+
+<script>
+// BOOK LOGIC
+let currentStage = 0;
+const cover = document.getElementById('cover');
+const spread1 = document.getElementById('spread1');
+const spread2 = document.getElementById('spread2');
+const lastPage = document.getElementById('lastPage');
+
+const preAudio = document.getElementById('preBookAudio');
+const openAudio = document.getElementById('openBookAudio');
+const closeAudio = document.getElementById('closeBookAudio');
+
+cover.addEventListener('click', () => {
+  cover.classList.add('opened');
+  openAudio.play();
+  preAudio.pause();
+  currentStage = 1;
+  showStage(currentStage);
+});
+
+// Swipe Detection
+let startX = 0;
+let endX = 0;
+document.addEventListener('touchstart', (e) => { startX = e.touches[0].clientX; });
+document.addEventListener('touchend', (e) => { 
+  endX = e.changedTouches[0].clientX;
+  handleSwipe();
+});
+
+function handleSwipe() {
+  if(currentStage === 0) return; // book closed
+  if(endX < startX - 50){ // swipe left
+    currentStage++;
+    showStage(currentStage);
+  } else if(endX > startX + 50){ // swipe right
+    currentStage--;
+    showStage(currentStage);
+  }
+}
+
+function showStage(stage){
+  // hide all
+  spread1.classList.remove('active');
+  spread2.classList.remove('active');
+  lastPage.classList.remove('active');
+
+  if(stage === 1) spread1.classList.add('active');
+  else if(stage === 2) spread2.classList.add('active');
+  else if(stage === 3) lastPage.classList.add('active');
+  else if(stage < 1){
+    cover.classList.remove('opened');
+    preAudio.play();
+    closeAudio.play();
+  } else if(stage > 3){
+    cover.classList.remove('opened');
+    closeAudio.play();
+    preAudio.play();
+  }
+}
+</script>
+
+</body>
+</html>
