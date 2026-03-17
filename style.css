@@ -1,0 +1,65 @@
+body{
+margin:0;
+background:#d6c1a3;
+font-family:serif;
+overflow:hidden;
+}
+
+.title{
+text-align:center;
+font-size:40px;
+margin-top:10px;
+}
+
+/* BOOK */
+
+#book{
+width:90vw;
+height:80vh;
+margin:auto;
+}
+
+/* HARD COVER */
+
+.hard{
+background:#5a3825 !important;
+color:white;
+display:flex;
+align-items:center;
+justify-content:center;
+font-weight:bold;
+}
+
+/* FRONT COVER */
+
+.coverText{
+font-size:38px;
+font-family:Georgia, serif;
+text-align:center;
+}
+
+/* BACK COVER */
+
+.endText{
+font-size:30px;
+font-family:Georgia, serif;
+}
+
+/* PAGES */
+
+.page{
+background:white;
+padding:25px;
+}
+
+.text{
+font-size:20px;
+line-height:1.8;
+font-family:'Times New Roman', serif;
+}
+
+/* REALISTIC SHADOW */
+
+#book .page{
+box-shadow:0 0 20px rgba(0,0,0,0.3);
+}
