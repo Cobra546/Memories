@@ -4,7 +4,7 @@ let closeMusic = document.getElementById("musicClose");
 
 window.onload = function(){
 
-// Start music (web open)
+// Start music
 startMusic.play().catch(()=>{});
 
 $("#book").turn({
@@ -13,7 +13,7 @@ height:500,
 autoCenter:true
 });
 
-// When book starts turning (open feel)
+// On first interaction (book open)
 $("#book").bind("turning", function(){
 
 if(openMusic.paused){
@@ -23,7 +23,7 @@ openMusic.play();
 
 });
 
-// When reach last page (end feel)
+// When last page reached
 $("#book").bind("turned", function(e, page){
 
 let total = $("#book").turn("pages");
