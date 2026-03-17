@@ -30,7 +30,7 @@ justify-content:center;
 font-weight:bold;
 }
 
-/* FRONT COVER */
+/* TEXT STYLES */
 
 .coverText{
 font-size:38px;
@@ -38,18 +38,9 @@ font-family:Georgia, serif;
 text-align:center;
 }
 
-/* BACK COVER */
-
 .endText{
 font-size:30px;
 font-family:Georgia, serif;
-}
-
-/* PAGES */
-
-.page{
-background:white;
-padding:25px;
 }
 
 .text{
@@ -58,7 +49,33 @@ line-height:1.8;
 font-family:'Times New Roman', serif;
 }
 
-/* REALISTIC SHADOW */
+/* PAGE */
+
+.page{
+background:white;
+padding:25px;
+position:relative;
+}
+
+/* IMAGE PAGE */
+
+.pageImage{
+width:100%;
+margin-top:20px;
+border-radius:10px;
+}
+
+/* VIDEO CORNER */
+
+.cornerVideo{
+width:160px;
+position:absolute;
+bottom:20px;
+right:20px;
+border-radius:12px;
+}
+
+/* SHADOW */
 
 #book .page{
 box-shadow:0 0 20px rgba(0,0,0,0.3);
