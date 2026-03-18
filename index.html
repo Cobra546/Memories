@@ -1,104 +1,114 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-
+<meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Memories</title>
-
 <link rel="stylesheet" href="style.css">
-
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
-<script src="https://cdn.jsdelivr.net/gh/blasten/turn.js/turn.min.js"></script>
-
 </head>
-
 <body>
 
-<h1 class="title">MEMORIES</h1>
-
-<div id="book">
-
-<!-- COVER -->
-
-<div class="hard cover">
-<span class="coverText">Our memories in short</span>
+<!-- CAKE SCREEN -->
+<div id="cakeScreen">
+  <div class="cake3d" id="cake">
+    <div class="cakeHalf leftCake"></div>
+    <div class="cakeHalf rightCake"></div>
+    <div class="cream"></div>
+    <div class="top">Happy Anniversary</div>
+  </div>
+  <div class="knife" id="knife">🔪</div>
 </div>
 
-<!-- PAGE 2 -->
-
-<div class="page">
-<p class="text">
-Aao shoro karen apny pyaar ki dastan kaisy hum mily  
-kaisy humain mohabbat hoyi yaad hai mujhy aj bhi  
-wo din jab Zainab ki call ayi thi mainy aapsy pucha tha  
-aur aapny hn bola tha aur mujhy meri Zindagi mil gayi thi  
-</p>
+<!-- BASKET -->
+<div id="giftBox">
+  <div class="basket">
+    🧺
+    <div class="items">
+      <span class="item" id="bear">🧸</span>
+      <span class="item" id="bangles">💜</span>
+      <span class="item" id="earrings">💍</span>
+      <span class="item" id="choco">🍫🍫</span>
+      <span class="item" id="cardBtn">💌</span>
+    </div>
+  </div>
 </div>
 
-<!-- PAGE 3 -->
-
-<div class="page">
-<p class="text">
-Aao shoro karen apny pyaar ki dastan kaisy hum mily  
-kaisy humain mohabbat hoyi yaad hai mujhy aj bhi  
-wo din jab Zainab ki call ayi thi mainy aapsy pucha tha  
-aur aapny hn bola tha aur mujhy meri Zindagi mil gayi thi  
-</p>
-
-<img src="InShot_20260310_204949778.png" class="pageImage">
+<!-- CARD -->
+<div id="card">
+  <div class="cardInner">
+    <div class="cardPage left">
+      <h2>Anniversary 💖</h2>
+      <p>
+        Happy Anniversary my love 💞<br>
+        humny kuch na kuch kar ky eik saal guzar liya<br>
+        bht up side downs aye magar humny sab sort kar liya<br>
+        bht lary bht hasy bht memories create kari 💕
+      </p>
+    </div>
+    <div class="cardPage right">
+      <p>
+        aur un memories ki hi choti si jhalak mainy us book main add ki<br>
+        aur hum inshallah baki saal bhi aisy hi guzar lengy<br>
+        aur I loveeee yohhh mommmy 👅🫦💋
+      </p>
+      <p class="sign">To: Mommy 💜<br>From: Usman</p>
+    </div>
+  </div>
 </div>
 
-<!-- PAGE 4 -->
+<!-- BOOK -->
+<div id="book" style="display:none;">
+  <div class="hard cover">
+    <div class="woodPlate">MEMORIES</div>
+  </div>
 
-<div class="page">
-<p class="text">
-Phir kaisy hum roz baten karty larty jagarty  
-magar kbhi kisi ny kisi ko chora nhi.  
-Har din kuch naya tha aur har lamha  
-hamari kahani ko aur khoobsurat bana raha tha  
-</p>
+  <div class="page">
+    <p class="text">
+      Aao shoro karen apny pyaar ki dastan kaisy hum mily<br>
+      kaisy humain mohabbat hoyi yaad hai mujhy aj bhi<br>
+      wo din jab Zainab ki call ayi thi mainy aapsy pucha tha<br>
+      aur aapny hn bola tha aur mujhy meri Zindagi mil gayi thi
+    </p>
+  </div>
 
-<video class="cornerVideo" autoplay muted loop>
-<source src="lv_7397967193448795412_20260310205455.mp4" type="video/mp4">
-</video>
+  <div class="page">
+    <p class="text">
+      Phir kaisy hum roz baten karty larty jagarty<br>
+      magar kbhi kisi ny kisi ko chora nhi.<br>
+      Har din kuch naya tha aur har lamha<br>
+      hamari kahani ko aur khoobsurat bana raha tha
+    </p>
+    <img src="pic3.jpg" class="pageImage">
+  </div>
+
+  <div class="page">
+    <p class="text">
+      Bht up side down aye hain humary relationship main<br>
+      lekin humny sab kuch sort kar ky wapis sy sahi kar diya<br>
+      kyu ky we love each other truly 💞
+    </p>
+    <video class="cornerVideo" autoplay muted loop>
+      <source src="video2.mp4" type="video/mp4">
+    </video>
+  </div>
+
+  <div class="page lastBig">
+    <p class="text bigText">
+      Aur hum inshallah nikkah bhi karengy aur<br>
+      eik dusry ko kabhi nhi chorengy<br>
+      and I loveeeeeee youhhhh sooooooooo muchhhhhhhhhhhhh<br>
+      meri princess 💕💓❣️💝
+    </p>
+  </div>
+
+  <div class="hard backCover"></div>
 </div>
 
-<!-- PAGE 5 -->
+<!-- END POPUP -->
+<div id="endPopup">THE END ❤️</div>
 
-<div class="page">
-<p class="text">
-Bht up side down aye hain humary relationship main  
-lekin humny sab kuch sort kar ky wapis sy sahi kar diya  
-kyu ky we love each other truly 💞  
-</p>
-</div>
-
-<!-- PAGE 6 -->
-
-<div class="page">
-<p class="text">
-Aur hum inshallah nikkah bhi karengy aur  
-eik dusry ko kabhi nhi chorengy  
-and I loveeeeeee yohhhhhhh soooooooooo muchhhhhhhhhhhhh  
-meri princess 💕💓❣️💝  
-</p>
-</div>
-
-<!-- BACK COVER -->
-
-<div class="hard backCover">
-<span class="endText">The End ❤️</span>
-</div>
-
-</div>
-
-<!-- MUSIC -->
-
-<audio id="musicStart" src="Punjabi.mp3" loop></audio>
-<audio id="musicOpen" src="English.mp3" loop></audio>
-<audio id="musicClose" src="Urdu.mp3"></audio>
-
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="https://www.turnjs.com/lib/turn.min.js"></script>
 <script src="script.js"></script>
-
 </body>
 </html>
