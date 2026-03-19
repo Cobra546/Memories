@@ -1,64 +1,61 @@
-// Music elements (optional)
-let startMusic=document.getElementById("musicStart");
-let openMusic=document.getElementById("musicOpen");
-let closeMusic=document.getElementById("musicClose");
+window.onload=function(){
 
-// Start with cake visible
-let cake=document.getElementById("cake");
-let knife=document.getElementById("knife");
-let giftBox=document.getElementById("giftBox");
+document.getElementById("musicStart").play().catch(()=>{});
+
+$("#book").turn({
+width:900,
+height:500,
+autoCenter:true
+});
+
+};
+
+// 🔥 CANDLE
+function blowCandle(){
+document.getElementById("flame").style.display="none";
+}
+
+// 🔪 CUT CAKE
+function cutCake(){
+
+document.getElementById("cakeScreen").style.display="none";
+document.getElementById("giftBox").style.display="block";
+
+}
+
+// 🎁 ITEMS
+function toggleItem(el){
+el.classList.toggle("active");
+}
+
+// 💌 CARD
+function showCard(){
+
 let card=document.getElementById("card");
-let cardInner=document.querySelector(".cardInner");
-let book=document.getElementById("book");
+card.style.display="block";
 
-// Knife drag / slice (simple click demo)
-knife.addEventListener("click",()=>{
-  cake.classList.add("cut");
-  setTimeout(showBasket,1500);
-});
+card.onclick=function(){
+card.style.display="none";
+showBook();
+};
 
-// Basket click to toggle items
-document.querySelectorAll(".item").forEach(el=>{
-  let visible=false;
-  el.addEventListener("click",()=>{
-    visible=!visible;
-    if(visible){el.style.transform="scale(1.5)";}
-    else{el.style.transform="scale(1)";}
-  });
-});
-
-// Card open
-document.getElementById("cardBtn").addEventListener("click",()=>{
-  card.style.transform="translate(-50%,-50%) scale(1)";
-  cardInner.classList.add("flip");
-});
-
-// Close card
-card.addEventListener("click",()=>{
-  cardInner.classList.remove("flip");
-  card.style.transform="translate(-150%,-50%) scale(0)";
-  setTimeout(()=>{
-    card.style.display="none";
-    showBook();
-  },800);
-});
-
-function showBasket(){
-  giftBox.style.display="block";
 }
 
+// 📖 BOOK
 function showBook(){
-  document.getElementById("cakeScreen").style.display="none";
-  book.style.display="block";
+document.getElementById("book").style.display="block";
 }
 
-$("#book").turn({width:900,height:500,autoCenter:true});
+// 💥 END
 $("#book").bind("turning",function(e,page){
-  if(page===1){showEnd();}
-});
 
-function showEnd(){
-  let popup=document.getElementById("endPopup");
-  popup.style.display="flex";
-  setTimeout(()=>{popup.style.display="none";},3000);
+if(page===1){
+let end=document.getElementById("endPopup");
+end.style.display="flex";
+
+setTimeout(()=>{
+end.style.display="none";
+},3000);
 }
+
+});
