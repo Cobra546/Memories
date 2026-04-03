@@ -1,169 +1,109 @@
-let scene,camera,renderer,model;
-
-// 🎂 INIT CAKE
-function initCake(){
-
-scene=new THREE.Scene();
-
-camera=new THREE.PerspectiveCamera(
-75,
-window.innerWidth/(window.innerHeight*0.6),
-0.1,
-1000
-);
-
-// TOP VIEW
-camera.position.set(0,5,0);
-camera.lookAt(0,0,0);
-
-renderer=new THREE.WebGLRenderer({alpha:true});
-renderer.setSize(window.innerWidth,window.innerHeight*0.6);
-
-document.getElementById("cakeContainer").appendChild(renderer.domElement);
-
-// LIGHT
-let light=new THREE.HemisphereLight(0xffffff,0x444444,1);
-scene.add(light);
-
-// LOAD MODEL
-let loader=new THREE.GLTFLoader();
-
-loader.load("chocolate_cake.glb",(gltf)=>{
-model=gltf.scene;
-model.scale.set(2,2,2);
-scene.add(model);
-});
-
-// LOOP
-function animate(){
-requestAnimationFrame(animate);
-renderer.render(scene,camera);
-}
-animate();
-
+// MUSIC
+let currentSong=null;
+function playSong(id){
+if(currentSong){currentSong.pause();currentSong.currentTime=0;}
+let s=document.getElementById(id);
+s.play().catch(()=>{});
+currentSong=s;
 }
 
-// 🚀 START
-window.onload=function(){
-
-document.getElementById("musicStart").play().catch(()=>{});
-
-initCake();
-
-$("#book").turn({
-width:900,
-height:500,
-autoCenter:true
-});
-
+// START
+window.onload=()=>{
+document.getElementById("loader").style.display="none";
+document.getElementById("cakeScreen").style.display="flex";
+playSong("song1");
 };
 
-// 🔪 DRAG SYSTEM
-let dragging=false;
-let knife=document.getElementById("knife");
-let line=document.getElementById("cutLine");
+// 🎂 CUT
+document.addEventListener("click",()=>{
+startVideo();
+},{once:true});
 
-knife.onmousedown=()=>dragging=true;
+function startVideo(){
 
-document.onmousemove=(e)=>{
-if(!dragging) return;
-
-knife.style.left=e.clientX+"px";
-line.style.left=e.clientX+"px";
-line.style.opacity=1;
-};
-
-document.onmouseup=()=>{
-if(!dragging) return;
-
-dragging=false;
-splitCake();
-};
-
-// 🍰 SPLIT CAKE
-function splitCake(){
-
-if(!model) return;
-
-model.traverse((obj)=>{
-if(obj.isMesh){
-
-if(obj.position.x<0){
-obj.position.x-=1;
-obj.rotation.z-=0.2;
-}else{
-obj.position.x+=1;
-obj.rotation.z+=0.2;
-}
-
-}
-});
-
-setTimeout(()=>{
 document.getElementById("cakeScreen").style.display="none";
-document.getElementById("giftBox").style.display="flex";
-},1500);
 
-}
+let videoScreen=document.getElementById("videoScreen");
+let video=document.getElementById("cakeVideo");
 
-// 🎁 ITEMS
-function toggleItem(el){
-el.classList.toggle("active");
-}
+videoScreen.style.display="block";
+video.play();
 
-// 💌 CARD SYSTEM
-let cardOpen=false;
-
-function showCard(){
-
-let card=document.getElementById("card");
-card.style.transform="translate(-50%,-50%) scale(1)";
-
-let wrapper=document.querySelector(".cardWrapper");
-let cover=document.querySelector(".cardCover");
-
-// OPEN
-cover.onclick=function(){
-wrapper.classList.add("open");
-cardOpen=true;
-};
-
-// CLOSE
-card.onclick=function(){
-
-if(cardOpen){
-
-wrapper.classList.remove("open");
-cardOpen=false;
-
+// AFTER VIDEO
+video.onended=()=>{
 setTimeout(()=>{
-card.style.transform="translate(-50%,-150%) scale(0)";
-},500);
+videoScreen.style.display="none";
+showBasket();
+},2000);
+};
 
 }
 
-};
+// 🎁 BASKET
+let step=0;
 
+function showBasket(){
+playSong("song2");
+document.getElementById("giftBox").style.display="flex";
+}
+
+function basketClick(){
+step++;
+
+if(step===3) showTeddyHug();
+if(step===5) triggerCard();
+if(step===6) showBook();
+}
+
+// 🧸 TEDDY
+function showTeddyHug(){
+let t=document.getElementById("teddy");
+t.classList.add("show");
+
+setTimeout(()=>t.classList.add("teddyHug"),200);
+setTimeout(()=>t.classList.remove("teddyHug"),2200);
+}
+
+// 💌 CARD
+let cardStep=0;
+
+function triggerCard(){
+let card=document.getElementById("card");
+card.classList.add("show");
+cardStep=0;
+
+card.onclick=()=>{
+cardStep++;
+
+if(cardStep===1) document.querySelector(".cardWrapper").classList.add("open");
+else if(cardStep===2) document.querySelector(".cardWrapper").classList.remove("open");
+else if(cardStep===3){
+card.classList.remove("show");
+cardStep=0;
+}
+};
 }
 
 // 📖 BOOK
+let bookStep=0;
+
 function showBook(){
+playSong("song3");
 
-document.getElementById("giftBox").style.display="none";
-document.getElementById("book").style.display="block";
+let book=document.getElementById("book");
+book.style.display="block";
 
+book.onclick=()=>{
+bookStep++;
+
+if(bookStep===4){
+book.style.display="none";
+showFinal();
+}
+};
 }
 
-// 💥 END
-$("#book").bind("turning",(e,page)=>{
-if(page===1){
-
-let end=document.getElementById("endPopup");
-end.style.display="flex";
-
-setTimeout(()=>{
-end.style.display="none";
-},3000);
-
+// 💥 FINAL
+function showFinal(){
+document.getElementById("finalPopup").style.display="block";
 }
-});
