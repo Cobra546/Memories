@@ -9,136 +9,122 @@
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script src="https://www.turnjs.com/lib/turn.min.js"></script>
 
-<!-- THREE -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/three@0.128/examples/js/loaders/GLTFLoader.js"></script>
-
 </head>
 
 <body>
 
-<!-- 🎂 CAKE -->
+<!-- LOADER -->
+<div id="loader">
+<div class="heart">💜</div>
+<p>Loading Memories...</p>
+</div>
+
+<!-- CAKE -->
 <div id="cakeScreen">
-  <div id="cakeContainer"></div>
-  <div id="knife">🔪</div>
-  <div id="cutLine"></div>
+<h2>Cut the Cake 🎂</h2>
+<div id="knife">🔪</div>
 </div>
 
-<!-- 🎁 BASKET -->
-<div id="giftBox">
-  <div class="basket">
-    <div class="items">
-      <span class="item" onclick="toggleItem(this)">🧸</span>
-      <span class="item" onclick="toggleItem(this)">💜</span>
-      <span class="item" onclick="toggleItem(this)">💍</span>
-      <span class="item" onclick="toggleItem(this)">🍫</span>
-      <span class="item" onclick="showCard()">💌</span>
-      <span class="item" onclick="showBook()">📖</span>
-    </div>
-  </div>
+<!-- 🎬 VIDEO SCREEN -->
+<div id="videoScreen">
+<video id="cakeVideo" src="cakecut.mp4"></video>
 </div>
 
-<!-- 💌 CARD -->
+<!-- BASKET -->
+<div id="giftBox" onclick="basketClick()">
+<h2>Tap Basket 🎁</h2>
+</div>
+
+<!-- TEDDY -->
+<div id="teddy">🧸</div>
+
+<!-- CARD -->
 <div id="card">
-  <div class="cardWrapper">
-    <div class="cardCover">💌 Tap to Open</div>
+<div class="cardWrapper">
+<div class="cardCover">💌</div>
 
-    <div class="cardInner">
-      <div class="cardPage">
-        <h2>Anniversary 💖</h2>
-        <p>
-        Happy Anniversary my love 💞  
-        humny kuch na kuch kar ky eik saal guzar liya  
-        bht up side downs aye magar humny sab sort kar liya  
-        bht lary bht hasy bht memories create kari 💕  
-        </p>
-      </div>
+<div class="cardInner">
 
-      <div class="cardPage">
-        <p>
-        aur un memories ki hi choti si jhalak mainy us book main add ki 💫  
-        aur hum inshallah baki saal bhi aisy hi guzar lengy  
-        aur I loveeee yohhh mommmy 🥺💖💞💕  
-        </p>
-        <p class="sign">To: Mommy 💜<br>From: Usman</p>
-      </div>
-    </div>
-  </div>
+<div class="cardPage">
+<h2>Anniversary 💖</h2>
+<p>
+Happy Anniversary my love 💞  
+humny kuch na kuch kar ky eik saal guzar liya  
+bht up side downs aye magar humny sab sort kar liya 💕  
+</p>
 </div>
 
-<!-- 📖 BOOK -->
-<div id="book" style="display:none;">
+<div class="cardPage">
+<p>
+aur hum inshallah baki saal bhi aisy hi guzar lengy  
+I loveeee yohhh mommmy 💖💞💕  
+</p>
+<p>To: Mommy 💜<br>From: Usman</p>
+</div>
 
-<div class="hard cover"><div class="woodPlate">MEMORIES</div></div>
+</div>
+</div>
+</div>
 
-<!-- PAGE 1 -->
+<!-- BOOK -->
+<div id="book">
+
 <div class="page">
-<p class="text">
+<p>
 Aao shoro karen apny pyaar ki dastan  
-kaisy hum mily  
-kaisy humain mohabbat hoyi yaad hai mujhy aj bhi  
-wo din jab Zainab ki call ayi thi  
-mainy aapsy pucha tha  
-aur aapny hn bola tha  
+kaisy hum mily kaisy humain mohabbat hoyi  
+yaad hai mujhy aj bhi wo din jab Zainab ki call ayi thi  
+mainy aapsy pucha tha aur aapny hn bola tha  
 aur mujhy meri Zindagi mil gayi thi
 </p>
 </div>
 
-<!-- PAGE 2 -->
 <div class="page">
-<p class="text">
-Phir kaisy hum roz baten karty  
-larty jagarty  
-magar kbhi kisi ny kisi ko chora nhi.  
-Har din kuch naya tha  
-aur har lamha  
+<p>
+Phir kaisy hum roz baten karty larty jagarty  
+magar kbhi kisi ny kisi ko chora nhi  
+Har din kuch naya tha aur har lamha  
 hamari kahani ko aur khoobsurat bana raha tha
 </p>
-<img src="InShot_20260310_204949778.png" class="pageImage">
+<img src="pic3.jpg" class="bookMedia">
 </div>
 
-<!-- PAGE 3 -->
 <div class="page">
-<p class="text">
+<p>
 Bht up side down aye hain humary relationship main  
 lekin humny sab kuch sort kar ky wapis sy sahi kar diya  
 kyu ky we love each other truly 💞
 </p>
-<video class="cornerVideo" autoplay muted loop>
-<source src="lv_7397967193448795412_20260310205455.mp4">
-</video>
+<video class="bookMedia" autoplay muted loop src="video2.mp4"></video>
 </div>
 
-<!-- PAGE 4 -->
 <div class="page">
-<p class="text">
+<p>
 Aur hum inshallah nikkah bhi karengy  
 aur eik dusry ko kabhi nhi chorengy  
-
 and I loveeeeeee yohhhhhhh  
 soooooooooo muchhhhhhhhhhhhh  
-
 meri princess 💕💓❣️💝
 </p>
 </div>
 
-<!-- LAST PAGE -->
-<div class="page lastBig">
-<p class="bigText">
-Forever Together 💖  
-Our Love Story Never Ends...
-</p>
+<div class="page">
+<h2 style="text-align:center;">Forever Together 💖</h2>
 </div>
-
-<div class="hard backCover"></div>
 
 </div>
 
-<!-- 💥 END -->
-<div id="endPopup">THE END ❤️</div>
+<!-- FINAL -->
+<div id="finalPopup">Forever Together 💖</div>
 
-<audio id="musicStart" src="Punjabi.mp3" loop></audio>
+<!-- MUSIC -->
+<audio id="song1" src="Punjabi.mp3" loop></audio>
+<audio id="song2" src="English.mp3" loop></audio>
+<audio id="song3" src="Urdu.mp3" loop></audio>
 
+<script src="script.js"></script>
+</body>
+</html>
 <script src="script.js"></script>
 
 </body>
