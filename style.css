@@ -1,44 +1,49 @@
 body{
 margin:0;
-font-family:'Segoe UI',sans-serif;
-background:linear-gradient(135deg,#f3e7ff,#ffe6f0);
+background:linear-gradient(135deg,#fff5e6,#fdf1dc);
 overflow:hidden;
+font-family:sans-serif;
 }
 
-/* 🎂 CAKE */
-#cakeScreen{
-height:100vh;
+/* LOADER */
+#loader{
+position:fixed;
+width:100%;height:100%;
 display:flex;
-flex-direction:column;
 justify-content:center;
 align-items:center;
+flex-direction:column;
+background:#fff5e6;
+z-index:9999;
 }
 
-#cakeContainer{
+/* CAKE */
+#cakeScreen{
+display:none;
+height:100vh;
+justify-content:center;
+align-items:center;
+flex-direction:column;
+}
+
+/* VIDEO SCREEN */
+#videoScreen{
+display:none;
+position:fixed;
+top:0;left:0;
 width:100%;
-height:60vh;
+height:100%;
+background:black;
+z-index:999;
 }
 
-#knife{
-position:absolute;
-font-size:40px;
-top:50%;
-left:50%;
-transform:translate(-50%,-50%);
-cursor:pointer;
-z-index:10;
+#cakeVideo{
+width:100%;
+height:100%;
+object-fit:cover;
 }
 
-#cutLine{
-position:absolute;
-top:20%;
-height:60%;
-width:3px;
-background:red;
-opacity:0;
-}
-
-/* 🎁 BASKET */
+/* BASKET */
 #giftBox{
 display:none;
 height:100vh;
@@ -46,164 +51,51 @@ justify-content:center;
 align-items:center;
 }
 
-.basket{
-width:320px;
-height:240px;
-background:linear-gradient(145deg,#d8a25e,#b57f3f);
-border-radius:20px 20px 50px 50px;
-position:relative;
-box-shadow:0 20px 40px rgba(0,0,0,0.3);
-}
-
-/* HANDLE */
-.basket::before{
-content:"";
-position:absolute;
-top:-70px;
+/* TEDDY */
+#teddy{
+position:fixed;
+top:60%;
 left:50%;
-transform:translateX(-50%);
-width:200px;
-height:120px;
-border:10px solid #b57f3f;
-border-bottom:none;
-border-radius:120px 120px 0 0;
+transform:translate(-50%,0) scale(0);
+font-size:80px;
+transition:0.5s;
 }
+#teddy.show{transform:translate(-50%,-50%) scale(1);}
 
-/* ITEMS */
-.items{
-position:absolute;
-top:20px;
-width:100%;
-text-align:center;
+@keyframes hug{
+50%{transform:translate(-50%,-50%) scale(1.2);}
 }
+.teddyHug{animation:hug 2s;}
 
-.item{
-font-size:24px;
-margin:6px;
-cursor:pointer;
-transition:0.3s;
-}
-
-.item.active{
-transform:translateY(-100px) scale(1.3);
-}
-
-/* 💌 CARD */
+/* CARD */
 #card{
+position:fixed;
+top:50%;left:50%;
+transform:translate(-50%,-50%) scale(0);
+transition:0.5s;
+}
+#card.show{transform:translate(-50%,-50%) scale(1);}
+
+/* BOOK */
+#book{
+display:none;
+width:90vw;
+height:80vh;
+background:white;
+padding:20px;
+}
+.bookMedia{
+width:100%;
+margin-top:10px;
+}
+
+/* FINAL */
+#finalPopup{
 position:fixed;
 top:50%;
 left:50%;
-transform:translate(-50%,-50%) scale(0);
-width:320px;
-height:220px;
-perspective:1200px;
-z-index:9999;
-transition:0.5s;
-}
-
-.cardWrapper{
-width:100%;
-height:100%;
-position:relative;
-}
-
-.cardCover{
-position:absolute;
-width:100%;
-height:100%;
-background:#ffccd5;
-display:flex;
-justify-content:center;
-align-items:center;
-flex-direction:column;
-font-size:22px;
-cursor:pointer;
-border-radius:10px;
-transition:1s;
-z-index:2;
-}
-
-.cardWrapper.open .cardCover{
-transform:rotateY(-180deg);
-}
-
-.cardInner{
-position:absolute;
-width:100%;
-height:100%;
-display:flex;
-background:white;
-border-radius:10px;
-overflow:hidden;
-}
-
-.cardPage{
-width:50%;
-padding:10px;
-color:#5e2b97;
-font-size:12px;
-}
-
-.sign{
-position:absolute;
-bottom:10px;
-right:10px;
-font-size:10px;
-}
-
-/* 📖 BOOK */
-#book{
-width:90vw;
-height:80vh;
-margin:auto;
-box-shadow:0 20px 60px rgba(0,0,0,0.3);
-}
-
-.page{
-background:white;
-color:black;
-padding:20px;
-position:relative;
-}
-
-.pageImage{
-width:100%;
-border-radius:10px;
-}
-
-.cornerVideo{
-width:120px;
-position:absolute;
-right:10px;
-bottom:10px;
-border-radius:10px;
-}
-
-.text{
-font-size:18px;
-line-height:1.8;
-color:#5e2b97;
-}
-
-.bigText{
-font-size:28px;
-text-align:center;
-color:#8e44ad;
-margin-top:40%;
-}
-
-/* 💥 END */
-#endPopup{
-position:fixed;
-top:0;
-left:0;
-width:100%;
-height:100%;
-background:black;
-color:white;
+transform:translate(-50%,-50%);
 display:none;
-justify-content:center;
-align-items:center;
-font-size:40px;
-z-index:9999;
+font-size:30px;
+color:#8e44ad;
 }
