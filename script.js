@@ -14,96 +14,82 @@ document.getElementById("cakeScreen").style.display="flex";
 playSong("song1");
 };
 
-// 🎂 CUT
+// 🎂 CUT → VIDEO
 document.addEventListener("click",()=>{
-startVideo();
+showVideo();
 },{once:true});
 
-function startVideo(){
+function showVideo(){
 
-document.getElementById("cakeScreen").style.display="none";
+let popup = document.getElementById("videoPopup");
+let vid = document.getElementById("cakeVideo");
 
-let videoScreen=document.getElementById("videoScreen");
-let video=document.getElementById("cakeVideo");
+popup.style.display="block";
 
-videoScreen.style.display="block";
-video.play();
-
-// AFTER VIDEO
-video.onended=()=>{
 setTimeout(()=>{
-videoScreen.style.display="none";
-showBasket();
-},2000);
+popup.classList.add("show");
+},50);
+
+vid.play();
+
+// END VIDEO
+vid.onended = ()=>{
+setTimeout(()=>{
+popup.classList.remove("show");
+
+setTimeout(()=>{
+popup.style.display="none";
+document.getElementById("cakeScreen").style.display="none";
+document.getElementById("basketScreen").style.display="flex";
+},400);
+
+},800);
 };
 
 }
 
-// 🎁 BASKET
+// 🎁 BASKET FLOW
 let step=0;
 
-function showBasket(){
-playSong("song2");
-document.getElementById("giftBox").style.display="flex";
-}
+document.getElementById("basketScreen").onclick = function(){
 
-function basketClick(){
 step++;
 
-if(step===3) showTeddyHug();
-if(step===5) triggerCard();
-if(step===6) showBook();
-}
+if(step===1) showCard();
+if(step===2) openBook();
 
-// 🧸 TEDDY
-function showTeddyHug(){
-let t=document.getElementById("teddy");
-t.classList.add("show");
-
-setTimeout(()=>t.classList.add("teddyHug"),200);
-setTimeout(()=>t.classList.remove("teddyHug"),2200);
-}
+};
 
 // 💌 CARD
 let cardStep=0;
 
-function triggerCard(){
+function showCard(){
+
 let card=document.getElementById("card");
+let wrapper=document.querySelector(".cardWrapper");
+
 card.classList.add("show");
 cardStep=0;
 
-card.onclick=()=>{
+card.onclick=function(){
+
 cardStep++;
 
-if(cardStep===1) document.querySelector(".cardWrapper").classList.add("open");
-else if(cardStep===2) document.querySelector(".cardWrapper").classList.remove("open");
+if(cardStep===1) wrapper.classList.add("open");
+else if(cardStep===2) wrapper.classList.remove("open");
 else if(cardStep===3){
 card.classList.remove("show");
 cardStep=0;
 }
+
 };
+
 }
 
 // 📖 BOOK
-let bookStep=0;
+function openBook(){
 
-function showBook(){
-playSong("song3");
+document.getElementById("basketScreen").style.display="none";
+document.getElementById("bookScreen").style.display="flex";
 
-let book=document.getElementById("book");
-book.style.display="block";
-
-book.onclick=()=>{
-bookStep++;
-
-if(bookStep===4){
-book.style.display="none";
-showFinal();
-}
-};
-}
-
-// 💥 FINAL
-function showFinal(){
-document.getElementById("finalPopup").style.display="block";
 }
