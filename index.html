@@ -3,106 +3,81 @@
 <head>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Memories</title>
-
 <link rel="stylesheet" href="style.css">
 
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script src="https://www.turnjs.com/lib/turn.min.js"></script>
-
+<script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/three@0.128/examples/js/loaders/GLTFLoader.js"></script>
 </head>
-
 <body>
+
+<!-- 🔐 PIN LOCK -->
+<div id="lockScreen">
+  <h2>Password is the first day we talk 💜</h2>
+  <input type="password" id="pinInput" placeholder="Enter PIN">
+  <button onclick="checkPin()">Unlock</button>
+  <p id="errorMsg"></p>
+</div>
+
+<!-- ⏳ LOADER -->
+<div id="loader">
+  <div class="spinner"></div>
+  <p>Loading Memories... 💜</p>
+</div>
 
 <!-- 🎂 CAKE -->
 <div id="cakeScreen">
-  <h2>Cut the Cake 🎂</h2>
-  <div id="knife">🔪</div>
+  <div id="cakeContainer"></div>
 </div>
 
 <!-- 🎬 VIDEO POPUP -->
 <div id="videoPopup">
-  <video id="cakeVideo" src="download_20260404_022236_0000.mp4"></video>
+  <video id="cakeVideo" src="cakecut.mp4"></video>
 </div>
 
 <!-- 🎁 BASKET -->
 <div id="basketScreen">
-  <h2>Tap Basket 🎁</h2>
+  <div id="basketContainer"></div>
 </div>
 
 <!-- 💌 CARD -->
-<div id="card">
-  <div class="cardWrapper">
-    <div class="cardCover">💌</div>
-
-    <div class="cardInner">
-
-      <div class="cardPage">
-        <h2>Anniversary 💖</h2>
-        <p>
-        Happy Anniversary my love 💞  
+<div id="cardCover" onclick="openCard()">
+  <h1>I Love You ❤️</h1>
+</div>
+<div id="cardBook">
+  <div id="cardFlip">
+    <div class="page">💖 Anniversary 💖<br>Happy Anniversary my love 💞  
         humny kuch na kuch kar ky eik saal guzar liya  
-        bht up side downs aye magar humny sab sort kar liya  
-        </p>
-      </div>
-
-      <div class="cardPage">
-        <p>
-        aur hum inshallah baki saal bhi aisy hi guzar lengy  
-        I loveeee yohhh mommmy 💖💞💕  
-        </p>
-        <p>To: Mommy 💜<br>From: Usman</p>
-      </div>
-
-    </div>
+        bht up side downs aye magar humny sab sort kar liya   💞</div>
+    <div class="page">aur hum inshallah baki saal bhi aisy hi guzar lengy  
+        I loveeee yohhh mommmy 💖💞💕   💖<br>To: Mommy<br>From: Usman</div>
   </div>
 </div>
 
-<!-- 📖 BOOK SCREEN -->
-<div id="bookScreen">
-
+<!-- 📖 BOOK COVER -->
+<div id="bookCover" onclick="openBook()">
+  <h1>Our Story 📖</h1>
+</div>
+<!-- 📖 BOOK -->
+<div id="bookContainer">
 <div id="book">
-
-<!-- PAGE 1 -->
-<div class="page">
-<p>
-Aao shoro karen apny pyaar ki dastan  
+<div class="page">Aao shoro karen apny pyaar ki dastan  
 kaisy hum mily  
 kaisy humain mohabbat hoyi  
 yaad hai mujhy aj bhi wo din jab Zainab ki call ayi thi  
 mainy aapsy pucha tha  
 aur aapny hn bola tha  
-aur mujhy meri Zindagi mil gayi thi
-</p>
-</div>
-
-<!-- PAGE 2 -->
-<div class="page">
-<p>
-Phir kaisy hum roz baten karty  
+aur mujhy meri Zindagi mil gayi thi</div>
+<div class="page">Phir kaisy hum roz baten karty  
 larty jagarty  
 magar kbhi kisi ny kisi ko chora nhi  
 Har din kuch naya tha  
-aur har lamha hamari kahani ko aur khoobsurat bana raha tha
-</p>
-
-<img src="InShot_20260310_204949778.png" class="bookMedia">
-</div>
-
-<!-- PAGE 3 -->
-<div class="page">
-<p>
-Bht up side down aye hain humary relationship main  
+aur har lamha hamari kahani ko aur khoobsurat bana raha tha<img src="pic3.jpg"></div>
+<div class="page">Bht up side down aye hain humary relationship main  
 lekin humny sab kuch sort kar ky wapis sy sahi kar diya  
-kyu ky we love each other truly 💞
-</p>
-
-<video class="bookMedia bigVideo" autoplay muted loop playsinline src="lv_7397967193448795412_20260310205455.mp4"></video>
-</div>
-
-<!-- PAGE 4 -->
-<div class="page">
-<p>
-But mujhy kbhi pata nhi tha kbhi socha nhi tha is trha ka kuch hoga aisa bhi kuch hoga
+kyu ky we love each other truly 💞<video autoplay muted loop src="video2.mp4"></video></div>
+<div class="page">But mujhy kbhi pata nhi tha kbhi socha nhi tha is trha ka kuch hoga aisa bhi kuch hoga
 Main sochta tha ky kuch bhi ho jaye hum tw sath rahengy magar main shayad galat tha aur 
 Main aapko galat nhi bol raha aap apni jaga par sahi hain koi aur bhi hota tw wo bhi yehi karta
 Agar ho saky tw maaf kardega shayad jab aap ye parhy tw kuch aur ho magar abhi current situation 
@@ -116,18 +91,16 @@ abhi tw main apka intezar kar raha hun agy bhi karta rahonga but pata nhi aapsy 
 shayad aap ye web khul ky bhi na dekhen ya ye sab na parhy ya iska bhi reply na den magar mery hisab sy 
 ye sab sy achi web hai jo mainy banai hai aur at the end I loveeeeeee yohhhhhhh soooooooooo muchhhhhhhhhhhhh ummmmmmmaaaaaahhhhhhhh meri angry bird 🥹🥹
 Happy Birthday and Happy Anniversary kyu ky main tw abhi tak intezar kar raha hun na😊 apna khayal rakhi ga bht kyu ky shayad tab main na hun khayal rakhny ky liye
-aur gandy papar bhi nhi khayi ga apki tabiyat kharab ho jati hai🥹🥹 apna khayal rakhi ga aur jab bukar ho tw dawai khali ga
-</p>
+aur gandy papar bhi nhi khayi ga apki tabiyat kharab ho jati hai🥹🥹 apna khayal rakhi ga aur jab bukar ho tw dawai khali ga</div>
+<div class="page">Aur Inshallah hum nikkah bhi karengy aur humesha sath rahengy aur ye yaad rakhi ga my love never ends for you 😘☺️💖 💖</div>
+</div>
 </div>
 
-<!-- PAGE 5 -->
-<div class="page endPage">
-<h2>Aur mujhy tw aapsy nikkah bhi karna tha magar ab lag nhi raha
-  but ye yaad rakhi ga my love never ends for you 😘☺️💖</h2>
-</div>
-
-</div>
-
+<!-- 🎆 FINAL POPUP -->
+<div id="finalPopup">
+  <div class="popupBox">
+    Kya re chikni passand ayi kya? 😏💜
+  </div>
 </div>
 
 <script src="script.js"></script>
